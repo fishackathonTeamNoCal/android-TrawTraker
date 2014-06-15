@@ -1240,7 +1240,7 @@ containing a value of this type.
         public static final int start__photo_location=0x7f0c0001;
     }
     public static final class string {
-        public static final int InfoBlurb=0x7f0a0012;
+        public static final int InfoBlurb=0x7f0a0011;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f0a0001;
@@ -1281,12 +1281,11 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
-        public static final int action_settings=0x7f0a000f;
+        public static final int action_settings=0x7f0a000e;
         public static final int app_name=0x7f0a000d;
-        public static final int hello_world=0x7f0a000e;
-        public static final int takePhoto=0x7f0a0010;
-        public static final int title_activity_main_info=0x7f0a0011;
-        public static final int txtAbout=0x7f0a0013;
+        public static final int takePhoto=0x7f0a000f;
+        public static final int title_activity_main_info=0x7f0a0010;
+        public static final int txtAbout=0x7f0a0012;
     }
     public static final class style {
         /** 

@@ -17,6 +17,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.provider.Settings.System;
 
 public class Start_PhotoLocation extends Activity {
 
@@ -41,6 +43,7 @@ public class Start_PhotoLocation extends Activity {
 	public static final int MEDIA_TYPE_VIDEO = 2;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+	double CURRENT_TIME;
 	
 	
 	@Override
@@ -49,6 +52,9 @@ public class Start_PhotoLocation extends Activity {
 		setContentView(R.layout.activity_start__photo_location);
 
 	getPhoneGPScord();
+	String CURRENT_TIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+	int iCURRENT_TIME = Integer.valueOf(CURRENT_TIME);
+	Log.d("GGG***","CURRENT_TIME" + "    i" + iCURRENT_TIME);
 		
 	}
 
@@ -147,13 +153,13 @@ private final LocationListener locationListener = new LocationListener() {
 	
 	public void takePhoto(View v) {
 		    // create Intent to take a picture and return control to the calling application
-		    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-		    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+		    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 		    // start the image capture Intent
-		    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+		    startActivityForResult(cameraIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 		    
 			TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
 			txPhotoStatus.setText("image captured!");
@@ -170,7 +176,7 @@ private final LocationListener locationListener = new LocationListener() {
 	private static File getOutputMediaFile(int type){
 	    // To be safe, you should check that the SDCard is mounted
 	    // using Environment.getExternalStorageState() before doing this.
-
+		Log.d("GGG***","getOutputMediaFile started");
 	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 	              Environment.DIRECTORY_PICTURES), "MyCameraApp");
 	    // This location works best if you want the created images to be shared
@@ -204,30 +210,34 @@ private final LocationListener locationListener = new LocationListener() {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
+		Log.d("GGG***","onActivityResult - save file... ");
 	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 	        if (resultCode == RESULT_OK) {
 	            // Image captured and saved to fileUri specified in the Intent
-	            Toast.makeText(this, "Image saved to:\n" +
-	                     data.getData(), Toast.LENGTH_LONG).show();
+//	            Toast.makeText(this, "Image saved to:\n" +
+//	                     data.getData(), Toast.LENGTH_LONG).show();
+	            Toast.makeText(this, "Image saved to:\n", Toast.LENGTH_LONG).show();
 	        } else if (resultCode == RESULT_CANCELED) {
-	            // User cancelled the image capture
+	    		txPhotoStatus.setText("photo canceled");
 	        } else {
-	            // Image capture failed, advise user
+	    		txPhotoStatus.setText("fail to get image");
 	        }
 	    }
+	    
 
 	    if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
 	        if (resultCode == RESULT_OK) {
 	            // Video captured and saved to fileUri specified in the Intent
-	            Toast.makeText(this, "Video saved to:\n" +
-	                     data.getData(), Toast.LENGTH_LONG).show();
+	            Toast.makeText(this, "Video saved to:\n", Toast.LENGTH_LONG).show();
 	        } else if (resultCode == RESULT_CANCELED) {
-	            // User cancelled the video capture
+	    		txPhotoStatus.setText("video canceled");
 	        } else {
-	            // Video capture failed, advise user
+	    		txPhotoStatus.setText("fail to get video");
 	        }
 	    }
-	}
+	    
+	}   
 	
 	
 	@Override
