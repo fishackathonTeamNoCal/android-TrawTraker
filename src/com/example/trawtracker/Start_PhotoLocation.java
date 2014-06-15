@@ -160,6 +160,8 @@ public class Start_PhotoLocation extends Activity {
 	            500.0f, locationListener);
 	        Location location = locManager
 	                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
 	        if (location != null) {
 	            latitude = location.getLatitude();
 	            longitude = location.getLongitude();
@@ -180,7 +182,6 @@ public class Start_PhotoLocation extends Activity {
 	}
 
 private void updateWithNewLocation(Location location) {
-//    TextView myLocationText = (TextView) findViewById(R.id.text);
     String latLongString = "";
     if (location != null) {
         double lat = location.getLatitude();
@@ -228,8 +229,6 @@ private final LocationListener locationListener = new LocationListener() {
             }
         }.start();
 
-        TextView txReportStatus = (TextView) findViewById(R.id.txtSendReport);
-        txReportStatus.setText("report send!");
 		Intent returnMainScreen = new Intent(getBaseContext(),MainInfo.class);
 		startActivity(returnMainScreen);
 	}
