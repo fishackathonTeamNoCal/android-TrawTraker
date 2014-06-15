@@ -4,7 +4,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +25,7 @@ public class Start_PhotoLocation extends Activity {
 	private String reportValues;  //for shared preferences....?
 	private EditText edActivity, edVesselID, edDirection, edComments, edLocationInfo, edDateTime;
 	public String mVesselActivity, mVesselID, mDirection, mComment, mLocationInfo, mDateTime;
+	public double latitude, longitude; 
 	
 	
 	@Override
@@ -53,18 +58,64 @@ public class Start_PhotoLocation extends Activity {
 	
 	private void getPhoneGPScord() {
 		// get device properties (device manager?), read GPS coord. what is the data format?
-		Boolean haveGPS = false;    // true if phone GPS coordinates are available, else false
 		
 		// FIXME - HOW to get the GPS coord from the phone?? device manager settings? :/
+
+	       LocationManager locManager;
+	        locManager =(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+	        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L,
+	            500.0f, locationListener);
+	        Location location = locManager
+	                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+	        if (location != null) {
+	            latitude = location.getLatitude();
+	            longitude = location.getLongitude();
+	        }
+	   
+        String slatitude = String.valueOf(latitude);
+        String slongitude = String.valueOf(longitude);
+		Log.i("***GGGG","lat = " + slatitude + "   !!! long = " + slongitude);
+		
+		
+		Boolean isGPSEnabled = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 		
 		TextView txLocationStatus = (TextView) findViewById(R.id.txtLocationStatus);
 		//  notify of GPS status - enhancement - use image of GPS or crossed out GPS for room
-		if (haveGPS) {
+		if (isGPSEnabled) {
 			txLocationStatus.setText("Using Phone Location");
-		} else if (!haveGPS) {
+		} else if (!isGPSEnabled) {
 			txLocationStatus.setText("Phone GPS not available");
 		}
 	}
+
+private void updateWithNewLocation(Location location) {
+//    TextView myLocationText = (TextView) findViewById(R.id.text);
+    String latLongString = "";
+    if (location != null) {
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+//        latLongString = "Lat:" + lat + "\nLong:" + lng;
+    } else {
+//        latLongString = "No location found";
+    }
+//    myLocationText.setText("Your Current Position is:\n" + latLongString);
+}
+
+private final LocationListener locationListener = new LocationListener() {
+
+    public void onLocationChanged(Location location) {
+        updateWithNewLocation(location);
+    }
+
+    public void onProviderDisabled(String provider) {
+        updateWithNewLocation(null);
+    }
+
+    public void onProviderEnabled(String provider) {}
+
+    public void onStatusChanged(String provider,int status,Bundle extras){}
+};
+
 	
 	/*
 	 * Record the Values entered in the report, send via PostRequest/GetRequest... ?
