@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.trawtracker.Start_PhotoLocation"
     tools:ignore="MergeRootFrame" xmlns:android="http://schemas.android.com/apk/res/android">
-
+    
+<!-- FIXME - change all string text from hard coded to string resorces -->
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -22,35 +23,35 @@
 	           android:layout_width="fill_parent"
 	           android:layout_height="wrap_content"
 	           android:layout_marginStart="0dp"
-	           android:background="#50ff6600"
+	           android:background="#50b4c7fd"
 	           android:orientation="horizontal" >
 
+	          <ImageView
+                  android:id="@+id/imGPSStatus"
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginTop="5dp"
+                  android:gravity="left"
+                  android:src="@drawable/ic_gps_icon_red" />
+	           
 	           <ImageView
-	               android:id="@+id/doneButton"
-	               android:layout_width="wrap_content"
-	               android:layout_height="match_parent"
+	               android:id="@+id/cameraIcon"
+	               android:layout_width="40dp"
+	               android:layout_height="25dp"
 	               android:layout_marginLeft="20dp"
 	               android:layout_marginTop="5dp"
-	               android:src="@drawable/ic_launcher" />
-
-	           <Button
-	               android:id="@+id/goToReport"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:layout_marginLeft="10dp"
-	               android:text="Take Photo" />
+	               android:src="@drawable/camera" />
 
 	           <TextView
 	               android:id="@+id/photo_text"
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
-	               android:layout_marginLeft="30dp"
-	               android:layout_marginTop="5dp"
-	               android:layout_weight="0.2"
+	               android:layout_marginLeft="15dp"
+	               android:layout_marginTop="10dp"
 	               android:focusable="false"
 	               android:focusableInTouchMode="false"
-	               android:text="no photo yet" />
-
+	               android:text="no photo added" />
 	       </LinearLayout>
             
             <LinearLayout
@@ -68,7 +69,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:gravity="left"
-                    android:text="Vessel Description" />
+                    android:text="@string/vesselDsecriptionLabel" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -98,8 +99,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:hint="activity (fishing, anchor, etc.)"
-                    android:maxLines="1" />
+                    android:hint="@string/vesselActivity"
+                    android:maxLines="2" />
 
                 <EditText
                     android:id="@+id/txtVesselId"
@@ -108,67 +109,21 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:hint="vessel ID (#)"
+                    android:hint="@string/vesselIDLabel"
                     android:maxLines="1" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                <EditText
+                    android:id="@+id/txtDirection"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="@string/headingHint"
+                    android:maxLines="2" >
 
-                    <EditText
-                        android:id="@+id/txtDirection"
-                        android:layout_width="162dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        android:ems="10"
-                        android:hint="direction moving"
-                        android:maxLines="1" >
-
-                        <requestFocus />
-                    </EditText>
-
-                    <RelativeLayout
-                        android:id="@+id/rlDirection"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="60.73" >
-
-                        <ImageButton
-                            android:id="@+id/btnNW"
-                            android:layout_width="5dp"
-                            android:layout_height="5dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_launcher" />
-
-                        <ImageButton
-                            android:id="@+id/btnN"
-                            android:layout_width="5dp"
-                            android:layout_height="5dp"
-                            android:layout_toRightOf="@+id/btnNW"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_launcher" />
-
-                        <ImageButton
-                            android:id="@+id/btnNE"
-                            android:layout_width="5dp"
-                            android:layout_height="5dp"
-                            android:layout_toRightOf="@id/btnN"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_launcher" />
-
-                        <ImageButton
-                            android:id="@+id/btnW"
-                            android:layout_width="5dp"
-                            android:layout_height="5dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_launcher" />
-
-                    </RelativeLayout>
-
-                </LinearLayout>
+                    <requestFocus />
+                </EditText>
 
                 <EditText
                     android:id="@+id/txtComments"
@@ -177,8 +132,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:hint="comments"
-                    android:maxLines="1" />
+                    android:hint="@string/descriptionHint"
+                    android:maxLines="4" />
 
                 <ListView
                     android:id="@+id/lv1"
@@ -191,33 +146,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/LLTimeDate"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/titleLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left"
-                    android:text="Location Description" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dip"
-                    android:layout_marginTop="2dp"
-                    android:background="#FF909090" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/LLLocation"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/dateTimeDetail"
                 android:orientation="vertical" >
 
                 <EditText
@@ -226,26 +157,43 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
-                    android:hint="describe location"
-                    android:maxLength="10"
+                    android:hint="@string/locationHint"
                     android:maxLines="1" />
             </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/dateTimeDetail"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:orientation="vertical" >
+           <LinearLayout
+               android:id="@+id/dateTimeDetail"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="2dp"
+               android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/titleDateTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left"
-                    android:text="Date / Time" />
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" >
+
+                   <TextView
+                       android:id="@+id/titleDateTime"
+                       android:layout_width="wrap_content"
+                       android:layout_height="match_parent"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginTop="15dp"
+                       android:gravity="left"
+                       android:text="@string/dateTimeLabel" />
+
+                   <EditText
+                       android:id="@+id/txtDateTime"
+                       android:layout_width="290dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="5dp"
+                       android:layout_marginTop="10dp"
+                       android:layout_weight="1"
+                       android:ems="10"
+                       android:hint="@string/dateTimeMessage"
+                       android:maxLength="20"
+                       android:maxLines="1" />
+
+               </LinearLayout>
 
                 <View
                     android:layout_width="wrap_content"
@@ -253,42 +201,46 @@
                     android:layout_marginTop="2dp"
                     android:background="#FF909090" />
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/titleDateTime"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/dateTimeDetail"
-                android:orientation="vertical" >
-
-                <EditText
-                    android:id="@+id/txtDateTime"
-                    android:layout_width="290dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="DD/MM/YY HH:MM"
-                    android:maxLength="10"
-                    android:maxLines="1" />
-            </LinearLayout>
             
-            <LinearLayout
-                android:id="@+id/footer"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDateTime"
-                android:orientation="vertical" >
+	       <LinearLayout
+	           android:id="@+id/footerLayout"
+	           android:layout_width="fill_parent"
+	           android:layout_height="70dp"
+	           android:layout_marginStart="0dp"
+	           android:background="#b4c7fd"
+	           android:orientation="horizontal" >
 
-                <ImageView
-                    android:id="@+id/doneButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/ic_launcher" />
-            </LinearLayout>
+	           <ImageView
+	               android:id="@+id/reportIcon"
+	               android:layout_width="wrap_content"
+	               android:layout_height="match_parent"
+	               android:layout_marginLeft="20dp"
+	               android:layout_marginTop="5dp"
+	               android:src="@drawable/ic_launcher" />
+
+	           <Button
+	               android:id="@+id/btnSendReport"
+	               android:layout_width="match_parent"
+	               android:layout_height="match_parent"
+	               android:layout_margin="6dp"
+	               android:background="#220088"
+	               android:onClick="sendReport"
+	               android:text="@string/sendButtonHint"
+	               android:textColor="#ffffff" />
+
+	           <TextView
+	               android:id="@+id/txtSendReport"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:layout_marginLeft="30dp"
+	               android:layout_marginTop="5dp"
+	               android:layout_weight="0.2"
+	               android:focusable="false"
+	               android:focusableInTouchMode="false"
+	               android:text="not sent yet" />
+
+	       </LinearLayout>
+            
         </LinearLayout>
-        <!-- Till here i want to put it into a scroll view -->
     </ScrollView>
-
 </RelativeLayout>

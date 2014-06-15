@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TrawTracker</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">TrawlTracker</string>
+    <string name="action_settings">About</string>
     <string name="takePhoto">Take Photo</string>
-    <string name="title_activity_main_info">MainInfo</string>
+    <string name="title_activity_main_info">TrawlTracking</string>
+    <string name="InfoBlurb">This App lets you report a siting of potentially illegal trawling activing to Ghana\'s Government agency\: Fisheries Enforcement Unit (FEU). \n \n Make a new vessel report now:  \ntake a picture, fill in description</string>
+    <string name="txtAbout">Other methods to report to the FEU: \n use SMS #12345 \nwebsite: http://www.ghana.gov.gh/feu \ncall toll free 12 34 56 78</string>
+    <string name="vesselActivity">activity (fishing, anchor, etc.)</string>
+    <string name="vesselDsecriptionLabel">Vessel Description</string>
+    <string name="vesselIDLabel">vessel ID (#)</string>
+    <string name="headingHint">heading (ie. north)</string>
+    <string name="descriptionHint">description (size, markings, etc)</string>
+    <string name="locationHint">location</string>
+    <string name="dateTimeMessage">yyyyMMdd  HHmmss</string>
+    <string name="sendButtonHint">Send Report Now</string>
+    <string name="dateTimeLabel">Date / Time</string>
+    <string name="buttonMakeReportLabel">Make New Report</string>
 
 </resources>

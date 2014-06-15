@@ -1,38 +1,43 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.trawtracker.MainInfo"
-    tools:ignore="MergeRootFrame" >
-
-    <Button
-        android:id="@+id/goToReport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
-        android:onClick="reportScreen"
-        android:text="Make New Report" />
+    android:background="#50b4c7fd"
+    tools:ignore="MergeRootFrame" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="271dp"
-        android:layout_height="135dp"
+        android:id="@+id/txtInfoBlurb"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="TrawTracker App helps you... blab blab.... and send report the Fishery Enforcement Agency.  Also text FEA at SMS: #12345, website: www.gh??.com," />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp"
-        android:text="other..." />
+        android:textStyle="bold"
+        android:text="@string/InfoBlurb" />
+    
+     <TextView
+         android:id="@+id/txtAbout"
+         android:layout_width="280dp"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/txtInfoBlurb"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="10dp"
+         android:gravity="center"
+         android:text="@string/txtAbout"
+         android:textSize="12sp" />
+       
+     <Button
+         android:id="@+id/goToReport"
+         android:layout_width="fill_parent"
+         android:layout_height="50dp"
+         android:layout_centerHorizontal="true"
+         android:layout_below="@+id/txtAbout"
+         android:layout_marginTop="10dp"
+         android:background="#220088"
+         android:onClick="reportScreen"
+         android:text="@string/buttonMakeReportLabel"
+         android:textColor="#ffffff" />
 
 </RelativeLayout>
