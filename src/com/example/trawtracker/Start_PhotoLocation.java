@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
@@ -66,6 +67,34 @@ public class Start_PhotoLocation extends Activity {
 
     String mCurrentPhotoPath;
 
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_start__photo_location);
+
+		// Open Camera immediately to take photo
+		// FIXME - check camera is available on device
+		takePhoto();
+		
+		// Set GPS when Screen Opens
+		getPhoneGPScord();
+		
+		// Set Current Time in form (but allow to type/change form)
+		CURRENT_TIME = System.currentTimeMillis() / 1000; // current time in seconds
+		txCURRENT_TIME = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format(CURRENT_TIME*1000);
+		edDateTime = (EditText) findViewById(R.id.txtDateTime);
+		edDateTime.setText(txCURRENT_TIME);
+	}
+
+	public void takePhoto() {
+	    // create Intent to take a picture and return control to the calling application
+        dispatchTakePictureIntent();
+
+		TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
+		txPhotoStatus.setText("image captured!");
+	}
+	
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -102,26 +131,7 @@ public class Start_PhotoLocation extends Activity {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
-
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_start__photo_location);
-
-	// FIXME - set camera to open when this screen opens!!!	
-	
-	// Set GPS when Screen Opens
-	getPhoneGPScord();
-	
-	// Set Current Time
-	CURRENT_TIME = System.currentTimeMillis() / 1000; // current time in seconds
-	txCURRENT_TIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(CURRENT_TIME*1000);
-	Log.d("GGG***","CURRENT_TIME" + CURRENT_TIME + "string Current Time" + txCURRENT_TIME);
-	edDateTime = (EditText) findViewById(R.id.txtDateTime);
-	edDateTime.setText(txCURRENT_TIME);
-	}
-
 	/*
 	 * Record values entered into Report (ie. text boxes, etc)
 	 */
@@ -157,17 +167,15 @@ public class Start_PhotoLocation extends Activity {
 	   
         String slatitude = String.valueOf(latitude);
         String slongitude = String.valueOf(longitude);
-		Log.i("***GGGG","lat = " + slatitude + "   !!! long = " + slongitude);
-		
 		
 		Boolean isGPSEnabled = locManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 		
-		TextView txLocationStatus = (TextView) findViewById(R.id.txtLocationStatus);
-		//  notify of GPS status - enhancement - use image of GPS or crossed out GPS for room
+		ImageView mGPSicon = (ImageView) findViewById(R.id.imGPSStatus);
+
 		if (isGPSEnabled) {
-			txLocationStatus.setText("Using Phone Location");
+			mGPSicon.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_icon_green));
 		} else if (!isGPSEnabled) {
-			txLocationStatus.setText("Phone GPS not available");
+			mGPSicon.setImageDrawable(getResources().getDrawable(R.drawable.ic_gps_icon_red));
 		}
 	}
 
@@ -181,7 +189,7 @@ private void updateWithNewLocation(Location location) {
     } else {
         latLongString = "No location found";
     }
-    Log.i("GGG***","Your Current Position is:\n" + latLongString);
+    Log.i("TT","Your Current Position is:\n" + latLongString);
 }
 
 private final LocationListener locationListener = new LocationListener() {
@@ -201,12 +209,12 @@ private final LocationListener locationListener = new LocationListener() {
 
 	
 	/*
-	 * Record the Values entered in the report, send via ______ 
+	 * Record the Values entered in the report
 	 */
 	public void sendReport(View v) {
 		saveReportValues();
 		
-		Log.i("GG","activity = " + mVesselActivity + " vesselID= " + mVesselID + "  TypedDirection= " 
+		Log.i("TT","activity = " + mVesselActivity + " vesselID= " + mVesselID + "  TypedDirection= " 
 		+ mDirection + "  LocationInfo= " + mLocationInfo + "  Date/Time= " + mDateTime);
 
         new Thread() {
@@ -231,7 +239,8 @@ private final LocationListener locationListener = new LocationListener() {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://jasonchen57-test.appspot.com//submit");
-
+        Log.d("TT", "new httpPost created");
+        
         try {
             // Add your data
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
@@ -275,27 +284,18 @@ private final LocationListener locationListener = new LocationListener() {
             String encodedImage = Base64.encodeToString(b , Base64.DEFAULT);
             nameValuePairs.add(new BasicNameValuePair("encodedImg", encodedImage));
 
-
-            // TODO: Fill in the remaining fields that we wish to upload.
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
             // Execute HTTP Post Request
             HttpResponse response = httpclient.execute(httppost);
-
+            Log.d("TT", "send HTTPresponse");
+            
         } catch (ClientProtocolException e) {
             // TODO Auto-generated catch block
         } catch (IOException e) {
             // TODO Auto-generated catch block
         }
     }
-
-	public void takePhoto(View v) {
-		    // create Intent to take a picture and return control to the calling application
-            dispatchTakePictureIntent();
-
-			TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
-			txPhotoStatus.setText("image captured!");
-	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

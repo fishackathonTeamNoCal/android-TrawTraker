@@ -23,36 +23,35 @@
 	           android:layout_width="fill_parent"
 	           android:layout_height="wrap_content"
 	           android:layout_marginStart="0dp"
-	           android:background="#50ff6600"
+	           android:background="#50b4c7fd"
 	           android:orientation="horizontal" >
 
+	          <ImageView
+                  android:id="@+id/imGPSStatus"
+                  android:layout_width="30dp"
+                  android:layout_height="30dp"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginTop="5dp"
+                  android:gravity="left"
+                  android:src="@drawable/ic_gps_icon_red" />
+	           
 	           <ImageView
 	               android:id="@+id/cameraIcon"
-	               android:layout_width="wrap_content"
-	               android:layout_height="match_parent"
+	               android:layout_width="40dp"
+	               android:layout_height="25dp"
 	               android:layout_marginLeft="20dp"
 	               android:layout_marginTop="5dp"
-	               android:src="@drawable/ic_launcher" />
-
-	           <Button
-	               android:id="@+id/btnTakePhoto"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:layout_marginLeft="10dp"
-	               android:text="Take Photo" 
-	               android:onClick="takePhoto"/>
+	               android:src="@drawable/camera" />
 
 	           <TextView
 	               android:id="@+id/photo_text"
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
-	               android:layout_marginLeft="30dp"
-	               android:layout_marginTop="5dp"
-	               android:layout_weight="0.2"
+	               android:layout_marginLeft="15dp"
+	               android:layout_marginTop="10dp"
 	               android:focusable="false"
 	               android:focusableInTouchMode="false"
-	               android:text="no photo yet" />
-
+	               android:text="no photo added" />
 	       </LinearLayout>
             
             <LinearLayout
@@ -113,104 +112,19 @@
                     android:hint="vessel ID (#)"
                     android:maxLines="1" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                <EditText
+                    android:id="@+id/txtDirection"
+                    android:layout_width="290dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.71"
+                    android:ems="10"
+                    android:hint="vessel heading (ie. north)"
+                    android:maxLines="1" >
 
-                    <EditText
-                        android:id="@+id/txtDirection"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        android:ems="10"
-                        android:hint="heading to... "
-                        android:maxLines="1" >
-
-                        <requestFocus />
-                    </EditText>
-
-                    <RelativeLayout
-                        android:id="@+id/rlDirection"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".6" >
-
-                        <ImageButton
-                            android:id="@+id/btnNW"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_launcher" />
-
-                        <ImageButton
-                            android:id="@+id/btnN"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_toRightOf="@+id/btnNW"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_launcher" />
-
-                        <ImageButton
-                            android:id="@+id/btnNE"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_toRightOf="@+id/btnN"
-                            android:layout_alignParentTop="true"
-                            android:src="@drawable/ic_launcher" />
-
-                        <ImageButton
-                            android:id="@+id/btnW"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_below="@+id/btnNW"
-                            android:src="@drawable/ic_launcher" />
-                        
-                        <ImageButton
-                            android:id="@+id/btnMiddle"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_toRightOf="@+id/btnW"
-                            android:layout_below="@+id/btnN"
-                            android:src="@drawable/ic_launcher" />
-                        
-                 	  <ImageButton
-                            android:id="@+id/btnE"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_toRightOf="@+id/btnMiddle"
-                            android:layout_below="@+id/btnNE"
-                            android:src="@drawable/ic_launcher" />
-                 	  
-                        <ImageButton
-                            android:id="@+id/btnSW"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_below="@+id/btnW"
-                            android:src="@drawable/ic_launcher" />
-                        
-                        <ImageButton
-                            android:id="@+id/btnS"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_toRightOf="@+id/btnSW"
-                            android:layout_below="@+id/btnMiddle"
-                            android:src="@drawable/ic_launcher" />
-                        
-                 	  <ImageButton
-                            android:id="@+id/btnSE"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_toRightOf="@+id/btnS"
-                            android:layout_below="@+id/btnE"
-                            android:src="@drawable/ic_launcher" />                 	  
-
-                    </RelativeLayout>
-
-                </LinearLayout>
+                    <requestFocus />
+                </EditText>
 
                 <EditText
                     android:id="@+id/txtComments"
@@ -219,7 +133,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:hint="comments"
+                    android:hint="vessel features, etc..."
                     android:maxLines="1" />
 
                 <ListView
@@ -230,46 +144,6 @@
                     android:layout_marginTop="10dp"
                     android:choiceMode="singleChoice"
                     android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/LLTimeDate"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/titleLocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:gravity="left"
-                        android:text="Location Description" />
-
-                    <TextView
-                        android:id="@+id/txtLocationStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:background="#50ff6600"
-                        android:gravity="left"
-                        android:text="Using Phone Location" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dip"
-                    android:layout_marginTop="2dp"
-                    android:background="#FF909090" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -289,21 +163,39 @@
                     android:maxLines="1" />
             </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/dateTimeDetail"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:orientation="vertical" >
+           <LinearLayout
+               android:id="@+id/dateTimeDetail"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp"
+               android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/titleDateTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left"
-                    android:text="Date / Time" />
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" >
+
+                   <TextView
+                       android:id="@+id/titleDateTime"
+                       android:layout_width="wrap_content"
+                       android:layout_height="match_parent"
+                       android:layout_marginLeft="10dp"
+                       android:layout_marginTop="20dp"
+                       android:gravity="left"
+                       android:text="Date / Time" />
+
+                   <EditText
+                       android:id="@+id/txtDateTime"
+                       android:layout_width="290dp"
+                       android:layout_height="wrap_content"
+                       android:layout_marginLeft="5dp"
+                       android:layout_marginTop="10dp"
+                       android:layout_weight="1"
+                       android:ems="10"
+                       android:hint="DD/MM/YY HH:MM"
+                       android:maxLength="20"
+                       android:maxLines="1" />
+
+               </LinearLayout>
 
                 <View
                     android:layout_width="wrap_content"
@@ -311,32 +203,13 @@
                     android:layout_marginTop="2dp"
                     android:background="#FF909090" />
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/titleDateTime"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/dateTimeDetail"
-                android:orientation="vertical" >
-
-                <EditText
-                    android:id="@+id/txtDateTime"
-                    android:layout_width="290dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="DD/MM/YY HH:MM"
-                    android:maxLength="20"
-                    android:maxLines="1"/>
-
-            </LinearLayout>
             
 	       <LinearLayout
-	           android:id="@+id/headerLayout"
+	           android:id="@+id/footerLayout"
 	           android:layout_width="fill_parent"
-	           android:layout_height="wrap_content"
+	           android:layout_height="70dp"
 	           android:layout_marginStart="0dp"
-	           android:background="#50ff6600"
+	           android:background="#b4c7fd"
 	           android:orientation="horizontal" >
 
 	           <ImageView
@@ -349,10 +222,12 @@
 
 	           <Button
 	               android:id="@+id/btnSendReport"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:layout_marginLeft="10dp"
-	               android:text="Send Report" 
+	               android:layout_width="match_parent"
+	               android:layout_height="match_parent"
+			       android:background="#220088"
+	       	   	   android:textColor="#ffffff"
+	               android:layout_margin="6dp"
+	               android:text="Send Report Now" 
 	               android:onClick="sendReport"/>
 
 	           <TextView
