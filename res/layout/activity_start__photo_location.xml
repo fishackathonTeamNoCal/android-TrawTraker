@@ -165,7 +165,7 @@
                android:id="@+id/dateTimeDetail"
                android:layout_width="fill_parent"
                android:layout_height="wrap_content"
-               android:layout_marginTop="10dp"
+               android:layout_marginTop="2dp"
                android:orientation="vertical" >
 
                <LinearLayout
@@ -177,7 +177,7 @@
                        android:layout_width="wrap_content"
                        android:layout_height="match_parent"
                        android:layout_marginLeft="10dp"
-                       android:layout_marginTop="20dp"
+                       android:layout_marginTop="15dp"
                        android:gravity="left"
                        android:text="@string/dateTimeLabel" />
 

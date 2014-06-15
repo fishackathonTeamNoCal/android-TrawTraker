@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/txtInfoBlurb"
         android:layout_width="280dp"
-        android:layout_height="135dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
@@ -20,22 +20,21 @@
      <TextView
          android:id="@+id/txtAbout"
          android:layout_width="280dp"
-         android:layout_height="300dp"
-         android:layout_above="@+id/goToReport"
+         android:layout_height="wrap_content"
          android:layout_below="@+id/txtInfoBlurb"
          android:layout_centerHorizontal="true"
          android:layout_marginTop="10dp"
          android:gravity="center"
          android:text="@string/txtAbout"
-         android:textStyle="bold" />
+         android:textSize="12sp" />
        
      <Button
          android:id="@+id/goToReport"
-         android:layout_width="match_parent"
+         android:layout_width="fill_parent"
          android:layout_height="50dp"
-         android:layout_below="@+id/txtAbout"
          android:layout_centerHorizontal="true"
-         android:layout_marginTop="5dp"
+         android:layout_below="@+id/txtAbout"
+         android:layout_marginTop="10dp"
          android:background="#220088"
          android:onClick="reportScreen"
          android:text="@string/buttonMakeReportLabel"

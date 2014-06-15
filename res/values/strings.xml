@@ -5,8 +5,8 @@
     <string name="action_settings">About</string>
     <string name="takePhoto">Take Photo</string>
     <string name="title_activity_main_info">TrawlTracking</string>
-    <string name="InfoBlurb">This App lets you send a siting of potentially illegal trawling activing to Ghana Government agency, Fisheries Enforcement Unit (FEU). \n \n Make a new report:  take a picture of the vessel, writing in vessel desciption and location.</string>
-    <string name="txtAbout">Contact the FEU to report illegal trawling: \nclick the button below, \nOR \nuse SMS #12345, \nwebsite: http://www.ghana.gov.gh/feu, \ncall toll free 12 34 56 78.</string>
+    <string name="InfoBlurb">This App lets you report a siting of potentially illegal trawling activing to Ghana's Government agency\: Fisheries Enforcement Unit (FEU). \n \n Make a new vessel report now:  \ntake a picture, fill in description</string>
+    <string name="txtAbout">Other methods to report to the FEU: \n use SMS #12345 \nwebsite: http://www.ghana.gov.gh/feu \ncall toll free 12 34 56 78</string>
     <string name="vesselActivity">activity (fishing, anchor, etc.)</string>
     <string name="vesselDsecriptionLabel">Vessel Description</string>
     <string name="vesselIDLabel">vessel ID (#)</string>
