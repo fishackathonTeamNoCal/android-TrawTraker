@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.trawtracker.MainInfo"
+    android:background="#50ff6600"
     tools:ignore="MergeRootFrame" >
 
     <TextView
@@ -14,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:background="#50ff6600"
+        android:textStyle="bold"
         android:text="@string/InfoBlurb" />
     
      <TextView
@@ -26,14 +27,16 @@
          android:layout_marginTop="10dp"
          android:gravity="center"
          android:text="@string/txtAbout" />
-     
+       
      <Button
         android:id="@+id/goToReport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_below="@+id/txtAbout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:background="#220088"
+        android:textColor="#ffffff"
+        android:layout_marginTop="50dp"
         android:onClick="reportScreen"
         android:text="Make New Report" />
 
