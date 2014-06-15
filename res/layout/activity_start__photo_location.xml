@@ -35,13 +35,14 @@
                   android:gravity="left"
                   android:src="@drawable/ic_gps_icon_red" />
 	           
-	           <ImageView
+	           <ImageButton
 	               android:id="@+id/cameraIcon"
 	               android:layout_width="40dp"
 	               android:layout_height="25dp"
 	               android:layout_marginLeft="20dp"
 	               android:layout_marginTop="5dp"
-	               android:src="@drawable/camera" />
+	               android:src="@drawable/camera"
+	               android:onClick="takePhoto" />
 
 	           <TextView
 	               android:id="@+id/photo_text"

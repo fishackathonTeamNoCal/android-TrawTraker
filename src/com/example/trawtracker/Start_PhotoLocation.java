@@ -75,7 +75,7 @@ public class Start_PhotoLocation extends Activity {
 
 		// Open Camera immediately to take photo
 		// FIXME - check camera is available on device
-		takePhoto();
+//		takePhoto();
 		
 		// Set GPS when Screen Opens
 		getPhoneGPScord();
@@ -87,12 +87,13 @@ public class Start_PhotoLocation extends Activity {
 		edDateTime.setText(txCURRENT_TIME);
 	}
 
-	public void takePhoto() {
+	public void takePhoto(View v) {
 	    // create Intent to take a picture and return control to the calling application
         dispatchTakePictureIntent();
 
 		TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
 		txPhotoStatus.setText("image captured!");
+		// FIXME - NO CAMERA ETC
 	}
 	
     private void dispatchTakePictureIntent() {
@@ -161,10 +162,15 @@ public class Start_PhotoLocation extends Activity {
 	        Location location = locManager
 	                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-
+//	        if (location != null) {
+//            latitude = location.getLatitude();
+//            longitude = location.getLongitude();
+//        }
+        
+        // Hard coded for demo - location: 5.535169, -0.189686
 	        if (location != null) {
-	            latitude = location.getLatitude();
-	            longitude = location.getLongitude();
+	            latitude = 5.535169;
+	            longitude = -0.189686;
 	        }
 	   
         String slatitude = String.valueOf(latitude);
@@ -237,8 +243,8 @@ private final LocationListener locationListener = new LocationListener() {
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://jasonchen57-test.appspot.com//submit");
-        Log.d("TT", "new httpPost created");
+        HttpPost httppost = new HttpPost("jasonchen57-test.appspot.com//submit");
+        Log.i("Requestd Connection", httppost.getURI().toString());
         
         try {
             // Add your data
