@@ -1,9 +1,12 @@
 package com.example.trawtracker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -19,6 +22,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,6 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Start_PhotoLocation extends Activity {
+    private static final int REQUEST_TAKE_PHOTO = 1;
 
 	private String reportValues;  //for shared preferences....?
 	private EditText edActivity, edVesselID, edDirection, edComments, edLocationInfo, edDateTime;
@@ -58,7 +63,46 @@ public class Start_PhotoLocation extends Activity {
 	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 	double CURRENT_TIME;
 	String txCURRENT_TIME;
-	
+
+    String mCurrentPhotoPath;
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                Log.e("TrawTraker", "Error while saving photo.");
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(photoFile));
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -176,11 +220,10 @@ private final LocationListener locationListener = new LocationListener() {
             }
         }.start();
 
+        TextView txReportStatus = (TextView) findViewById(R.id.txtSendReport);
+        txReportStatus.setText("report send!");
 		Intent returnMainScreen = new Intent(getBaseContext(),MainInfo.class);
 		startActivity(returnMainScreen);
-		Toast.makeText(this, "Report Sent", Toast.LENGTH_LONG).show();
-		
-
 	}
 
     private void postReport() {
@@ -195,7 +238,7 @@ private final LocationListener locationListener = new LocationListener() {
 
             // TODO: Set the time appropriately based on mDateTime, which should be a time in seconds rather than an
             // arbitrary String.
-            nameValuePairs.add(new BasicNameValuePair("date", txCURRENT_TIME));
+            nameValuePairs.add(new BasicNameValuePair("date", String.valueOf(CURRENT_TIME)));
             nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(latitude)));
             nameValuePairs.add(new BasicNameValuePair("long", String.valueOf(longitude)));
             nameValuePairs.add(new BasicNameValuePair("vessel_id", mVesselID));
@@ -204,6 +247,34 @@ private final LocationListener locationListener = new LocationListener() {
             nameValuePairs.add(new BasicNameValuePair("heading", mDirection));
             nameValuePairs.add(new BasicNameValuePair("location_typed", mLocationInfo));
             nameValuePairs.add(new BasicNameValuePair("date_time_typed", mDateTime));
+
+            int targetW = 600;
+            int targetH = 600;
+
+            // Get the dimensions of the bitmap
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            int photoW = bmOptions.outWidth;
+            int photoH = bmOptions.outHeight;
+
+            // Determine how much to scale down the image
+            int scaleFactor = Math.max(photoW/targetW, photoH/targetH);
+
+            // Decode the image file into a Bitmap sized to fill the View
+            bmOptions.inJustDecodeBounds = false;
+            bmOptions.inSampleSize = scaleFactor;
+            bmOptions.inPurgeable = true;
+
+            Bitmap bm = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+            // FIXME: We set the quality to 50, out of 100. What's the appropriate value?
+            bm.compress(Bitmap.CompressFormat.JPEG, 50, baos); //bm is the bitmap object
+            byte[] b = baos.toByteArray();
+            String encodedImage = Base64.encodeToString(b , Base64.DEFAULT);
+            nameValuePairs.add(new BasicNameValuePair("encodedImg", encodedImage));
+
 
             // TODO: Fill in the remaining fields that we wish to upload.
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -216,99 +287,15 @@ private final LocationListener locationListener = new LocationListener() {
         } catch (IOException e) {
             // TODO Auto-generated catch block
         }
-        
-		TextView txReportStatus = (TextView) findViewById(R.id.txtSendReport);
-		txReportStatus.setText("report send!");
     }
-	
+
 	public void takePhoto(View v) {
 		    // create Intent to take a picture and return control to the calling application
-		    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            dispatchTakePictureIntent();
 
-		    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-		    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-
-		    // start the image capture Intent
-		    startActivityForResult(cameraIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-		    
 			TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
 			txPhotoStatus.setText("image captured!");
 	}
-	
-
-
-	/** Create a file Uri for saving an image or video */
-	private static Uri getOutputMediaFileUri(int type){
-	      return Uri.fromFile(getOutputMediaFile(type));
-	}
-
-	/** Create a File for saving an image or video */
-	private static File getOutputMediaFile(int type){
-	    // To be safe, you should check that the SDCard is mounted
-	    // using Environment.getExternalStorageState() before doing this.
-		Log.d("GGG***","getOutputMediaFile started");
-	    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-	              Environment.DIRECTORY_PICTURES), "MyCameraApp");
-	    // This location works best if you want the created images to be shared
-	    // between applications and persist after your app has been uninstalled.
-
-	    // Create the storage directory if it does not exist
-	    if (! mediaStorageDir.exists()){
-	        if (! mediaStorageDir.mkdirs()){
-	            Log.d("MyCameraApp", "failed to create directory");
-	            return null;
-	        }
-	    }
-
-	    // Create a media file name
-	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-	    File mediaFile;
-	    if (type == MEDIA_TYPE_IMAGE){
-	        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-	        "IMG_"+ timeStamp + ".jpg");
-	    } else if(type == MEDIA_TYPE_VIDEO) {
-	        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-	        "VID_"+ timeStamp + ".mp4");
-	    } else {
-	        return null;
-	    }
-
-	    return mediaFile;
-	}
-	
-
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
-		Log.d("GGG***","onActivityResult - save file... ");
-	    if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-	        if (resultCode == RESULT_OK) {
-	            // Image captured and saved to fileUri specified in the Intent
-//	            Toast.makeText(this, "Image saved to:\n" +
-//	                     data.getData(), Toast.LENGTH_LONG).show();
-	            Toast.makeText(this, "Image saved to:\n", Toast.LENGTH_LONG).show();
-	        } else if (resultCode == RESULT_CANCELED) {
-	    		txPhotoStatus.setText("photo canceled");
-	        } else {
-	    		txPhotoStatus.setText("fail to get image");
-	        }
-	    }
-	    
-
-	    if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
-	        if (resultCode == RESULT_OK) {
-	            // Video captured and saved to fileUri specified in the Intent
-	            Toast.makeText(this, "Video saved to:\n", Toast.LENGTH_LONG).show();
-	        } else if (resultCode == RESULT_CANCELED) {
-	    		txPhotoStatus.setText("video canceled");
-	        } else {
-	    		txPhotoStatus.setText("fail to get video");
-	        }
-	    }
-	    
-	}   
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
