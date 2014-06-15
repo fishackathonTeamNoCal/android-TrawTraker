@@ -165,7 +165,12 @@ public class Start_PhotoLocation extends Activity {
 	        Location location = locManager
 	                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-
+//	        if (location != null) {
+//          latitude = location.getLatitude();
+//          longitude = location.getLongitude();
+//      }
+      
+      // Hard coded for demo - location: 5.535169, -0.189686
 	        if (location != null) {
 	            latitude = 5.535169;
 	            longitude = -0.189686;
