@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,6 +31,19 @@ import android.widget.Toast;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.Settings.System;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Start_PhotoLocation extends Activity {
 
@@ -146,10 +160,54 @@ private final LocationListener locationListener = new LocationListener() {
 		
 		Log.i("GG","activity = " + mVesselActivity + " vesselID= " + mVesselID + "  TypedDirection= " 
 		+ mDirection + "  LocationInfo= " + mLocationInfo + "  Date/Time= " + mDateTime);
-		
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    postReport();
+                } catch (Exception e) {
+                    Log.e("TrawTraker", "Failed to post report", e);
+                }
+            }
+        }.start();
+
 		TextView txReportStatus = (TextView) findViewById(R.id.txtSendReport);
 		txReportStatus.setText("report send!");
 	}
+
+    private void postReport() {
+
+        // Create a new HttpClient and Post Header
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost("http://jasonchen57-test.appspot.com//submit");
+
+        try {
+            // Add your data
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+
+            // TODO: Set the time appropriately based on mDateTime, which should be a time in seconds rather than an
+            // arbitrary String.
+            nameValuePairs.add(new BasicNameValuePair("date", String.valueOf(System.currentTimeMillis() / 1000.0)));
+            nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(latitude)));
+            nameValuePairs.add(new BasicNameValuePair("long", String.valueOf(longitude)));
+            nameValuePairs.add(new BasicNameValuePair("vessel_id", mVesselID));
+
+            // TODO: Set the comment (we don't actually set mComment right now)
+            nameValuePairs.add(new BasicNameValuePair("comment", "hard coded comment"));
+
+            // TODO: Fill in the remaining fields that we wish to upload.
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+            // Execute HTTP Post Request
+            HttpResponse response = httpclient.execute(httppost);
+
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+        }
+    }
 	
 	public void takePhoto(View v) {
 		    // create Intent to take a picture and return control to the calling application
