@@ -1,11 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.trawtracker.MainInfo"
     android:background="#50b4c7fd"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:id="@+id/txtInfoBlurb"
@@ -21,24 +20,25 @@
      <TextView
          android:id="@+id/txtAbout"
          android:layout_width="280dp"
-         android:layout_height="80dp"
+         android:layout_height="300dp"
+         android:layout_above="@+id/goToReport"
          android:layout_below="@+id/txtInfoBlurb"
          android:layout_centerHorizontal="true"
          android:layout_marginTop="10dp"
-         android:textStyle="bold"
          android:gravity="center"
-         android:text="@string/txtAbout" />
+         android:text="@string/txtAbout"
+         android:textStyle="bold" />
        
      <Button
-        android:id="@+id/goToReport"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/txtAbout"
-        android:layout_centerHorizontal="true"
-        android:background="#220088"
-        android:textColor="#ffffff"
-        android:layout_marginTop="50dp"
-        android:onClick="reportScreen"
-        android:text="Make New Report" />
+         android:id="@+id/goToReport"
+         android:layout_width="match_parent"
+         android:layout_height="50dp"
+         android:layout_below="@+id/txtAbout"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="5dp"
+         android:background="#220088"
+         android:onClick="reportScreen"
+         android:text="@string/buttonMakeReportLabel"
+         android:textColor="#ffffff" />
 
 </RelativeLayout>

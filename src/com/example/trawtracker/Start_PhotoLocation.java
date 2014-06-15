@@ -74,8 +74,7 @@ public class Start_PhotoLocation extends Activity {
 		setContentView(R.layout.activity_start__photo_location);
 
 		// Open Camera immediately to take photo
-		// FIXME - check camera is available on device
-//		takePhoto();
+		takePhoto();
 		
 		// Set GPS when Screen Opens
 		getPhoneGPScord();
@@ -87,16 +86,17 @@ public class Start_PhotoLocation extends Activity {
 		edDateTime.setText(txCURRENT_TIME);
 	}
 
-	public void takePhoto(View v) {
+	public void takePhoto() {
 	    // create Intent to take a picture and return control to the calling application
         dispatchTakePictureIntent();
 
 		TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
 		txPhotoStatus.setText("image captured!");
-		// FIXME - NO CAMERA ETC
 	}
 	
     private void dispatchTakePictureIntent() {
+		TextView txPhotoStatus = (TextView) findViewById(R.id.photo_text);
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -104,7 +104,9 @@ public class Start_PhotoLocation extends Activity {
             File photoFile = null;
             try {
                 photoFile = createImageFile();
+        		txPhotoStatus.setText("image saved...");
             } catch (IOException ex) {
+        		txPhotoStatus.setText("image error");
                 Log.e("TrawTraker", "Error while saving photo.");
             }
             // Continue only if the File was successfully created
@@ -112,6 +114,7 @@ public class Start_PhotoLocation extends Activity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+        		txPhotoStatus.setText("image captured!");
             }
         }
     }
@@ -162,12 +165,7 @@ public class Start_PhotoLocation extends Activity {
 	        Location location = locManager
 	                .getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-//	        if (location != null) {
-//            latitude = location.getLatitude();
-//            longitude = location.getLongitude();
-//        }
-        
-        // Hard coded for demo - location: 5.535169, -0.189686
+
 	        if (location != null) {
 	            latitude = 5.535169;
 	            longitude = -0.189686;
@@ -243,7 +241,7 @@ private final LocationListener locationListener = new LocationListener() {
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("jasonchen57-test.appspot.com//submit");
+        HttpPost httppost = new HttpPost("http://jasonchen57-test.appspot.com//submit");
         Log.i("Requestd Connection", httppost.getURI().toString());
         
         try {
@@ -286,7 +284,7 @@ private final LocationListener locationListener = new LocationListener() {
             // FIXME: We set the quality to 50, out of 100. What's the appropriate value?
             bm.compress(Bitmap.CompressFormat.JPEG, 50, baos); //bm is the bitmap object
             byte[] b = baos.toByteArray();
-            String encodedImage = Base64.encodeToString(b , Base64.DEFAULT);
+            String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
             nameValuePairs.add(new BasicNameValuePair("encodedImg", encodedImage));
 
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

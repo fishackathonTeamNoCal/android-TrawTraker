@@ -35,14 +35,13 @@
                   android:gravity="left"
                   android:src="@drawable/ic_gps_icon_red" />
 	           
-	           <ImageButton
+	           <ImageView
 	               android:id="@+id/cameraIcon"
 	               android:layout_width="40dp"
 	               android:layout_height="25dp"
 	               android:layout_marginLeft="20dp"
 	               android:layout_marginTop="5dp"
-	               android:src="@drawable/camera"
-	               android:onClick="takePhoto" />
+	               android:src="@drawable/camera" />
 
 	           <TextView
 	               android:id="@+id/photo_text"
@@ -70,7 +69,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:gravity="left"
-                    android:text="Vessel Description" />
+                    android:text="@string/vesselDsecriptionLabel" />
 
                 <View
                     android:layout_width="wrap_content"
@@ -100,8 +99,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:hint="activity (fishing, anchor, etc.)"
-                    android:maxLines="1" />
+                    android:hint="@string/vesselActivity"
+                    android:maxLines="2" />
 
                 <EditText
                     android:id="@+id/txtVesselId"
@@ -110,7 +109,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:hint="vessel ID (#)"
+                    android:hint="@string/vesselIDLabel"
                     android:maxLines="1" />
 
                 <EditText
@@ -119,10 +118,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="0.71"
                     android:ems="10"
-                    android:hint="heading (ie. north)"
-                    android:maxLines="1" >
+                    android:hint="@string/headingHint"
+                    android:maxLines="2" >
 
                     <requestFocus />
                 </EditText>
@@ -134,8 +132,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:ems="10"
-                    android:hint="description (size, markings, etc)"
-                    android:maxLines="1" />
+                    android:hint="@string/descriptionHint"
+                    android:maxLines="4" />
 
                 <ListView
                     android:id="@+id/lv1"
@@ -159,7 +157,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
-                    android:hint="location"
+                    android:hint="@string/locationHint"
                     android:maxLines="1" />
             </LinearLayout>
 
@@ -181,7 +179,7 @@
                        android:layout_marginLeft="10dp"
                        android:layout_marginTop="20dp"
                        android:gravity="left"
-                       android:text="Date / Time" />
+                       android:text="@string/dateTimeLabel" />
 
                    <EditText
                        android:id="@+id/txtDateTime"
@@ -191,7 +189,7 @@
                        android:layout_marginTop="10dp"
                        android:layout_weight="1"
                        android:ems="10"
-                       android:hint="DD/MM/YY HH:MM"
+                       android:hint="@string/dateTimeMessage"
                        android:maxLength="20"
                        android:maxLines="1" />
 
@@ -224,11 +222,11 @@
 	               android:id="@+id/btnSendReport"
 	               android:layout_width="match_parent"
 	               android:layout_height="match_parent"
-			       android:background="#220088"
-	       	   	   android:textColor="#ffffff"
 	               android:layout_margin="6dp"
-	               android:text="Send Report Now" 
-	               android:onClick="sendReport"/>
+	               android:background="#220088"
+	               android:onClick="sendReport"
+	               android:text="@string/sendButtonHint"
+	               android:textColor="#ffffff" />
 
 	           <TextView
 	               android:id="@+id/txtSendReport"
