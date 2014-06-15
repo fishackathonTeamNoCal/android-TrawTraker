@@ -57,6 +57,7 @@ public class Start_PhotoLocation extends Activity {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 	double CURRENT_TIME;
+	String txCURRENT_TIME;
 	
 	
 	@Override
@@ -70,11 +71,11 @@ public class Start_PhotoLocation extends Activity {
 	getPhoneGPScord();
 	
 	// Set Current Time
-	String CURRENT_TIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-	int iCURRENT_TIME = Integer.valueOf(CURRENT_TIME);
-	Log.d("GGG***","CURRENT_TIME" + "    i" + iCURRENT_TIME);
-//	("date", String.valueOf(System.currentTimeMillis() / 1000.0))  // FIXME
-		
+	CURRENT_TIME = System.currentTimeMillis() / 1000; // current time in seconds
+	txCURRENT_TIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(CURRENT_TIME*1000);
+	Log.d("GGG***","CURRENT_TIME" + CURRENT_TIME + "string Current Time" + txCURRENT_TIME);
+	edDateTime = (EditText) findViewById(R.id.txtDateTime);
+	edDateTime.setText(txCURRENT_TIME);
 	}
 
 	/*
@@ -97,9 +98,7 @@ public class Start_PhotoLocation extends Activity {
 	}
 	
 	private void getPhoneGPScord() {
-		// get device properties (device manager?), read GPS coord. what is the data format?
-		
-		// FIXME - HOW to get the GPS coord from the phone?? device manager settings? :/
+		// Get GPS location from phone - long and lat in degree (or 0,0 if not an option)
 
 	       LocationManager locManager;
 	        locManager =(LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -134,11 +133,11 @@ private void updateWithNewLocation(Location location) {
     if (location != null) {
         double lat = location.getLatitude();
         double lng = location.getLongitude();
-//        latLongString = "Lat:" + lat + "\nLong:" + lng;
+        latLongString = "Lat:" + lat + "\nLong:" + lng;
     } else {
-//        latLongString = "No location found";
+        latLongString = "No location found";
     }
-//    myLocationText.setText("Your Current Position is:\n" + latLongString);
+    Log.i("GGG***","Your Current Position is:\n" + latLongString);
 }
 
 private final LocationListener locationListener = new LocationListener() {
@@ -158,7 +157,7 @@ private final LocationListener locationListener = new LocationListener() {
 
 	
 	/*
-	 * Record the Values entered in the report, send via PostRequest/GetRequest... ?
+	 * Record the Values entered in the report, send via ______ 
 	 */
 	public void sendReport(View v) {
 		saveReportValues();
@@ -177,8 +176,11 @@ private final LocationListener locationListener = new LocationListener() {
             }
         }.start();
 
-		TextView txReportStatus = (TextView) findViewById(R.id.txtSendReport);
-		txReportStatus.setText("report send!");
+		Intent returnMainScreen = new Intent(getBaseContext(),MainInfo.class);
+		startActivity(returnMainScreen);
+		Toast.makeText(this, "Report Sent", Toast.LENGTH_LONG).show();
+		
+
 	}
 
     private void postReport() {
@@ -193,13 +195,15 @@ private final LocationListener locationListener = new LocationListener() {
 
             // TODO: Set the time appropriately based on mDateTime, which should be a time in seconds rather than an
             // arbitrary String.
-            nameValuePairs.add(new BasicNameValuePair("date", String.valueOf(System.currentTimeMillis() / 1000.0)));
+            nameValuePairs.add(new BasicNameValuePair("date", txCURRENT_TIME));
             nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(latitude)));
             nameValuePairs.add(new BasicNameValuePair("long", String.valueOf(longitude)));
             nameValuePairs.add(new BasicNameValuePair("vessel_id", mVesselID));
-
-            // TODO: Set the comment (we don't actually set mComment right now)
-            nameValuePairs.add(new BasicNameValuePair("comment", "hard coded comment"));
+            
+            nameValuePairs.add(new BasicNameValuePair("comment", mComment));
+            nameValuePairs.add(new BasicNameValuePair("heading", mDirection));
+            nameValuePairs.add(new BasicNameValuePair("location_typed", mLocationInfo));
+            nameValuePairs.add(new BasicNameValuePair("date_time_typed", mDateTime));
 
             // TODO: Fill in the remaining fields that we wish to upload.
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -212,6 +216,9 @@ private final LocationListener locationListener = new LocationListener() {
         } catch (IOException e) {
             // TODO Auto-generated catch block
         }
+        
+		TextView txReportStatus = (TextView) findViewById(R.id.txtSendReport);
+		txReportStatus.setText("report send!");
     }
 	
 	public void takePhoto(View v) {

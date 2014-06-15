@@ -286,7 +286,6 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:hint="describe location"
-                    android:maxLength="10"
                     android:maxLines="1" />
             </LinearLayout>
 
