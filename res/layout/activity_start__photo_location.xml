@@ -39,7 +39,8 @@
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
 	               android:layout_marginLeft="10dp"
-	               android:text="Take Photo" />
+	               android:text="Take Photo" 
+	               android:onClick="takePhoto"/>
 
 	           <TextView
 	               android:id="@+id/photo_text"
