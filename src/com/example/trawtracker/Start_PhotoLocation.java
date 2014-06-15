@@ -30,7 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.provider.Settings.System;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -65,10 +64,16 @@ public class Start_PhotoLocation extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start__photo_location);
 
+	// FIXME - set camera to open when this screen opens!!!	
+	
+	// Set GPS when Screen Opens
 	getPhoneGPScord();
+	
+	// Set Current Time
 	String CURRENT_TIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 	int iCURRENT_TIME = Integer.valueOf(CURRENT_TIME);
 	Log.d("GGG***","CURRENT_TIME" + "    i" + iCURRENT_TIME);
+//	("date", String.valueOf(System.currentTimeMillis() / 1000.0))  // FIXME
 		
 	}
 
