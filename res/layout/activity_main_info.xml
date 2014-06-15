@@ -6,25 +6,36 @@
     tools:context="com.example.trawtracker.MainInfo"
     tools:ignore="MergeRootFrame" >
 
-    <Button
-        android:id="@+id/goToReport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
-        android:onClick="reportScreen"
-        android:text="Make New Report" />
-
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="271dp"
+        android:id="@+id/txtInfoBlurb"
+        android:layout_width="280dp"
         android:layout_height="135dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="TrawTracker App helps you... blab blab.... and send report the Fishery Enforcement Agency.  Also text FEA at SMS: #12345, website: www.gh??.com," />
+        android:background="#50ff6600"
+        android:text="@string/InfoBlurb" />
+    
+     <TextView
+         android:id="@+id/txtAbout"
+         android:layout_width="280dp"
+         android:layout_height="80dp"
+         android:layout_below="@+id/txtInfoBlurb"
+         android:layout_centerHorizontal="true"
+         android:layout_marginTop="10dp"
+         android:gravity="center"
+         android:text="@string/txtAbout" />
+     
+     <Button
+        android:id="@+id/goToReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtAbout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:onClick="reportScreen"
+        android:text="Make New Report" />
 
     <Button
         android:id="@+id/button1"

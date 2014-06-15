@@ -26,7 +26,7 @@
 	           android:orientation="horizontal" >
 
 	           <ImageView
-	               android:id="@+id/doneButton"
+	               android:id="@+id/cameraIcon"
 	               android:layout_width="wrap_content"
 	               android:layout_height="match_parent"
 	               android:layout_marginLeft="20dp"
@@ -34,7 +34,7 @@
 	               android:src="@drawable/ic_launcher" />
 
 	           <Button
-	               android:id="@+id/goToReport"
+	               android:id="@+id/btnTakePhoto"
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
 	               android:layout_marginLeft="10dp"
@@ -117,12 +117,12 @@
 
                     <EditText
                         android:id="@+id/txtDirection"
-                        android:layout_width="162dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
                         android:ems="10"
-                        android:hint="direction moving"
+                        android:hint="heading to... "
                         android:maxLines="1" >
 
                         <requestFocus />
@@ -132,39 +132,79 @@
                         android:id="@+id/rlDirection"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="60.73" >
+                        android:layout_weight=".6" >
 
                         <ImageButton
                             android:id="@+id/btnNW"
-                            android:layout_width="5dp"
-                            android:layout_height="5dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentTop="true"
                             android:src="@drawable/ic_launcher" />
 
                         <ImageButton
                             android:id="@+id/btnN"
-                            android:layout_width="5dp"
-                            android:layout_height="5dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
                             android:layout_toRightOf="@+id/btnNW"
                             android:layout_alignParentTop="true"
                             android:src="@drawable/ic_launcher" />
 
                         <ImageButton
                             android:id="@+id/btnNE"
-                            android:layout_width="5dp"
-                            android:layout_height="5dp"
-                            android:layout_toRightOf="@id/btnN"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_toRightOf="@+id/btnN"
                             android:layout_alignParentTop="true"
                             android:src="@drawable/ic_launcher" />
 
                         <ImageButton
                             android:id="@+id/btnW"
-                            android:layout_width="5dp"
-                            android:layout_height="5dp"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
                             android:layout_alignParentLeft="true"
-                            android:layout_alignParentTop="true"
+                            android:layout_below="@+id/btnNW"
                             android:src="@drawable/ic_launcher" />
+                        
+                        <ImageButton
+                            android:id="@+id/btnMiddle"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_toRightOf="@+id/btnW"
+                            android:layout_below="@+id/btnN"
+                            android:src="@drawable/ic_launcher" />
+                        
+                 	  <ImageButton
+                            android:id="@+id/btnE"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_toRightOf="@+id/btnMiddle"
+                            android:layout_below="@+id/btnNE"
+                            android:src="@drawable/ic_launcher" />
+                 	  
+                        <ImageButton
+                            android:id="@+id/btnSW"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_below="@+id/btnW"
+                            android:src="@drawable/ic_launcher" />
+                        
+                        <ImageButton
+                            android:id="@+id/btnS"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_toRightOf="@+id/btnSW"
+                            android:layout_below="@+id/btnMiddle"
+                            android:src="@drawable/ic_launcher" />
+                        
+                 	  <ImageButton
+                            android:id="@+id/btnSE"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_toRightOf="@+id/btnS"
+                            android:layout_below="@+id/btnE"
+                            android:src="@drawable/ic_launcher" />                 	  
 
                     </RelativeLayout>
 
@@ -197,20 +237,37 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/titleLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left"
-                    android:text="Location Description" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/titleLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="left"
+                        android:text="Location Description" />
+
+                    <TextView
+                        android:id="@+id/txtLocationStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#50ff6600"
+                        android:gravity="left"
+                        android:text="Using Phone Location" />
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="wrap_content"
                     android:layout_height="2dip"
                     android:layout_marginTop="2dp"
                     android:background="#FF909090" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -272,21 +329,42 @@
                     android:maxLines="1" />
             </LinearLayout>
             
-            <LinearLayout
-                android:id="@+id/footer"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtDateTime"
-                android:orientation="vertical" >
+	       <LinearLayout
+	           android:id="@+id/headerLayout"
+	           android:layout_width="fill_parent"
+	           android:layout_height="wrap_content"
+	           android:layout_marginStart="0dp"
+	           android:background="#50ff6600"
+	           android:orientation="horizontal" >
 
-                <ImageView
-                    android:id="@+id/doneButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/ic_launcher" />
-            </LinearLayout>
+	           <ImageView
+	               android:id="@+id/reportIcon"
+	               android:layout_width="wrap_content"
+	               android:layout_height="match_parent"
+	               android:layout_marginLeft="20dp"
+	               android:layout_marginTop="5dp"
+	               android:src="@drawable/ic_launcher" />
+
+	           <Button
+	               android:id="@+id/btnSendReport"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:layout_marginLeft="10dp"
+	               android:text="Send Report" />
+
+	           <TextView
+	               android:id="@+id/txtSendReport"
+	               android:layout_width="wrap_content"
+	               android:layout_height="wrap_content"
+	               android:layout_marginLeft="30dp"
+	               android:layout_marginTop="5dp"
+	               android:layout_weight="0.2"
+	               android:focusable="false"
+	               android:focusableInTouchMode="false"
+	               android:text="not sent yet" />
+
+	       </LinearLayout>
+            
         </LinearLayout>
         <!-- Till here i want to put it into a scroll view -->
     </ScrollView>

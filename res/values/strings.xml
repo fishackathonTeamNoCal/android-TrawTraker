@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="takePhoto">Take Photo</string>
     <string name="title_activity_main_info">MainInfo</string>
+    <string name="InfoBlurb">This App lets you send a siting of potentially illegal trawling activing to Ghana Government agency, Fisheries Enforcement Unit (FEU). Make a new report: take a picture of the boat, filling in as much info as you can.</string>
+    <string name="txtAbout">Contact the FEU to report illegal trawling: use this app, OR  SMS #12345, website: ghanaFEU.gh, call toll free 12 34 56 78.</string>
 
 </resources>
