@@ -1,6 +1,5 @@
 package com.example.trawtracker;
 
-
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.os.Build;
 
 public class MainInfo extends Activity {
@@ -20,12 +20,18 @@ public class MainInfo extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_info);
+		
+//		EditText ed = (EditText) findViewById(R.id.edNewItem);
+
+		
+		// compass buttons --> how to switch case this....? - or number picker array
 	}
 
 	public void reportScreen(View v) {
 		Intent i1 = new Intent(getBaseContext(),Start_PhotoLocation.class);
 		startActivity(i1);
 	}
+	
 	
 	
 	@Override

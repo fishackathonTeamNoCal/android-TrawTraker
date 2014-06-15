@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.trawtracker.Start_PhotoLocation"
     tools:ignore="MergeRootFrame" xmlns:android="http://schemas.android.com/apk/res/android">
-
+    
+<!-- FIXME - change all string text from hard coded to string resorces -->
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -325,8 +326,9 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:hint="DD/MM/YY HH:MM"
-                    android:maxLength="10"
-                    android:maxLines="1" />
+                    android:maxLength="20"
+                    android:maxLines="1"/>
+
             </LinearLayout>
             
 	       <LinearLayout
@@ -350,7 +352,8 @@
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
 	               android:layout_marginLeft="10dp"
-	               android:text="Send Report" />
+	               android:text="Send Report" 
+	               android:onClick="sendReport"/>
 
 	           <TextView
 	               android:id="@+id/txtSendReport"
@@ -366,7 +369,5 @@
 	       </LinearLayout>
             
         </LinearLayout>
-        <!-- Till here i want to put it into a scroll view -->
     </ScrollView>
-
 </RelativeLayout>
